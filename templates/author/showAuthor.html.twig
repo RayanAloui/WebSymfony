@@ -1,0 +1,83 @@
+<html>
+<head>
+     <title>Details Of The Author</title>
+     <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            border-radius: 8px;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 28px;
+            color: #333;
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #3949AB;
+            text-align: center;
+        }
+
+        img {
+            display: block;
+            margin: 20px auto;
+            border-radius: 50%;
+            width: 300px;
+            height: 300px;
+        }
+
+        p {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+        }
+
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            text-decoration: none;
+            background-color: #5C6BC0;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 4px;
+            text-align: center;
+        }
+
+        a:hover {
+            background-color: #3949AB;
+        }
+
+        .back-link {
+            display: block;
+            text-align: center;
+            margin-top: 30px;
+        }
+     </style>
+</head>
+<body>
+    <div class="container">
+         <h1>Details Of The Author</h1>
+
+         <h2>{{ authorName }}</h2>
+         <img src="{{ asset(authorPicture) }}" alt="{{ authorName }}">
+         <p>Email : {{ authorEmail }}</p>
+         <p>Number of books : {{ authorBooks }}</p>
+
+         <div class="back-link">
+             <a href="{{ path('app_list_authors') }}">Return to the list of authors</a>
+         </div>
+    </div>
+</body>
+</html>
