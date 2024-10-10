@@ -1,0 +1,94 @@
+<html>
+<head>
+       <title>List Libraries</title>
+       <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                background-color: #fff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #5C6BC0;
+                color: white;
+            }
+
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            a {
+                color: #3949AB;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            h1 {
+                margin-top: 20px;
+                font-size: 24px;
+                color: #333;
+                text-align: center;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+       </style>
+  </head>
+<body>
+    <h1>List Libraries</h1>
+    <div class="container">
+        <div class="table-container">
+            {% if list is defined and list is not empty %}
+                <table>
+                    <tr>
+                       <th>ID</th>
+                       <th>Name</th>
+                       <th>Website</th>
+                       <th>date creation</th>
+                       <th>Actions</th>
+                    </tr>
+
+                    {% for library in list %}
+                    <tr>
+                       <td> {{ library.id }} </td>
+                       <td> {{ library.name}} </td>
+                       <td> {{ library.website }} </td>
+                       <td> {{ library.dateCreation|date }} </td>
+                       <td>
+                            <a href="{{ path('app_crud_library_edit', {id: library.id}) }}">Edit</a> |
+                            <a href="{{ path('app_crud_library_delete', {id: library.id}) }}" onclick="return confirm('Are you sure?');">Delete</a>
+                       </td>
+                    </tr>
+                    {% endfor %}
+                </table>
+            {% else %}
+                <h1>This table is not defined or empty</h1>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>

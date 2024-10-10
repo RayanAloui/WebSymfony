@@ -1,0 +1,96 @@
+<html>
+<head>
+    <title>Edit Author</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #e9ecef; /* Couleur de fond plus claire */
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px; /* Largeur du cadre */
+            margin: 0 auto;
+            background-color: #ffffff; /* Fond blanc pour le formulaire */
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            border-radius: 12px; /* Coins arrondis plus prononcés */
+            border: 1px solid #5C6BC0; /* Bordure autour du cadre */
+        }
+
+        h1 {
+            text-align: center;
+            color: #5C6BC0; /* Couleur du texte du titre */
+            margin-bottom: 20px;
+            font-size: 28px; /* Taille de la police du titre */
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555; /* Couleur des étiquettes */
+        }
+
+        /* Styles pour les champs de formulaire */
+        input[type="text"],
+        input[type="email"],
+        input[type="number"],
+        select {
+            width: 100%; /* Remplir la largeur disponible */
+            padding: 10px; /* Espacement interne */
+            margin-bottom: 15px; /* Espacement entre les champs */
+            border: 1px solid #5C6BC0; /* Bordure colorée */
+            border-radius: 4px; /* Coins arrondis */
+            box-sizing: border-box; /* Inclure la bordure et le padding dans la largeur totale */
+            font-size: 14px; /* Taille de police plus petite */
+            transition: border-color 0.3s, box-shadow 0.3s; /* Effets de transition */
+        }
+
+        input[type="text"]:focus,
+        input[type="email"]:focus,
+        input[type="number"]:focus,
+        select:focus {
+            border-color: #3949AB; /* Couleur de bordure au focus */
+            outline: none; /* Supprimer l'outline par défaut */
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2); /* Ombre lors du focus */
+        }
+
+        button {
+            background-color: #5C6BC0; /* Couleur de fond du bouton */
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%; /* Remplir la largeur */
+            transition: background-color 0.3s; /* Effet de transition */
+        }
+
+        button:hover {
+            background-color: #3949AB; /* Couleur de fond au survol */
+            transform: scale(1.05); /* Légère augmentation de la taille au survol */
+        }
+
+        /* Cadre autour des champs */
+        .form-fields {
+            border: 1px solid #ddd; /* Bordure claire */
+            padding: 15px; /* Espacement autour des champs */
+            border-radius: 8px; /* Coins arrondis */
+            background-color: #f8f9fa; /* Couleur de fond des champs */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Edit Author</h1>
+        {{ form_start(form) }}
+            <div class="form-fields"> <!-- Cadre autour des champs -->
+                {{ form_widget(form) }}
+            </div>
+            <p></p>
+            <button type="submit">Save Changes</button>
+        {{ form_end(form) }}
+    </div>
+</body>
+</html>

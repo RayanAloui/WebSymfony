@@ -56,19 +56,63 @@
             .table-container {
                 overflow-x: auto;
             }
+
+            form {
+    display: flex;
+    justify-content: center; /* Centrer le formulaire */
+    margin-bottom: 20px; /* Espacement en bas du formulaire */
+}
+
+input[type="text"] {
+    padding: 10px; /* Espacement interne pour le champ de texte */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+    width: 300px; /* Largeur fixe pour le champ de texte */
+    font-size: 16px; /* Taille de la police */
+    transition: border-color 0.3s; /* Effet de transition pour le changement de couleur */
+}
+
+input[type="text"]:focus {
+    border-color: #5C6BC0; /* Couleur de bordure lors du focus */
+    outline: none; /* Supprimer l'outline par défaut */
+}
+
+button {
+    padding: 10px 15px; /* Espacement interne pour le bouton */
+    background-color: #5C6BC0; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte */
+    border: none; /* Supprimer la bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+    font-size: 16px; /* Taille de la police */
+    margin-left: 10px; /* Espacement à gauche du bouton */
+    transition: background-color 0.3s; /* Effet de transition pour la couleur de fond */
+}
+
+button:hover {
+    background-color: #3949AB; /* Couleur de fond lors du survol */
+}
+
        </style>
   </head>
 <body>
+    <h1>List of Authors</h1>
     <div class="container">
+        <form method="get" action="{{ path('app_crud_author_search') }}">
+            <input type="text" name="library_name" placeholder="Search by Library Name">
+            <button type="submit">Search</button>
+        </form>
         <div class="table-container">
             {% if list is defined and list is not empty %}
                 <table>
                     <tr>
                        <th>ID</th>
                        <th>Name</th>
-                       <th>email</th>
+                       <th>Email</th>
                        <th>Number Of Books</th>
-                       <th>address</th>
+                       <th>Address</th>
+                       <th>Libraries</th>
+                       <th>Actions</th>
                     </tr>
 
                     {% for author in list %}
@@ -78,6 +122,11 @@
                        <td> {{ author.email }} </td>
                        <td> {{ author.nbrBooks }} </td>
                        <td> {{ author.adress }}</td>
+                       <td> {{ author.library.name }}</td>
+                       <td>
+                            <a href="{{ path('app_crud_author_edit', {id: author.id}) }}">Edit</a> |
+                            <a href="{{ path('app_crud_author_delete', {id: author.id}) }}" onclick="return confirm('Are you sure?');">Delete</a>
+                       </td>
                     </tr>
                     {% endfor %}
                 </table>
