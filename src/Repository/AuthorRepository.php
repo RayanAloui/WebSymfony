@@ -26,6 +26,22 @@ class AuthorRepository extends ServiceEntityRepository
             ->getResult();
     }
 
+    public function findByNumberOfBooks(?int $min, ?int $max)
+    {
+        $dql = "SELECT a FROM App\Entity\Author a WHERE a.nbrBooks >= :min AND a.nbrBooks <= :max";
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter('min', $min)
+            ->setParameter('max', $max);
+
+        return $query->getResult();
+    }
+
+    public function deleteAuthorsWithNoBooks(): void
+    {
+        $dql = 'DELETE FROM App\Entity\Author a WHERE a.nbrBooks = 0';
+        $this->getEntityManager()->createQuery($dql)->execute();
+    }
+
     //    /**
     //     * @return Author[] Returns an array of Author objects
     //     */

@@ -3,37 +3,100 @@
     <style>
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4;
         }
+
         /* Barre de navigation */
         .navbar {
-            overflow: hidden;
             background-color: #333;
+            padding: 10px;
+            text-align: center;
         }
+
         .navbar a {
-            float: left;
-            display: block;
             color: #f2f2f2;
             text-align: center;
             padding: 14px 20px;
             text-decoration: none;
+            font-size: 18px;
+            transition: background-color 0.3s, color 0.3s;
+            display: inline-block;
+            margin: 0 15px;
         }
+
         .navbar a:hover {
-            background-color: #ddd;
-            color: black;
+            background-color: #575757;
+            color: #fff;
+            border-radius: 4px;
         }
+
         /* Titre centré */
         h1 {
             text-align: center;
+            margin-top: 80px;
+            font-size: 36px;
+            color: #333;
+        }
+
+        /* Style des liens principaux */
+        .link-container {
+            display: flex;
+            justify-content: center;
             margin-top: 50px;
         }
+
+        .link-container a {
+            background-color: #007BFF;
+            color: white;
+            padding: 20px 40px;
+            text-decoration: none;
+            font-size: 20px;
+            margin: 0 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: background-color 0.3s, transform 0.3s;
+        }
+
+        .link-container a:hover {
+            background-color: #0056b3;
+            transform: translateY(-5px);
+        }
+
+        /* Footer */
+        .footer {
+            margin-top: 80px;
+            text-align: center;
+            color: #888;
+            font-size: 14px;
+        }
+
     </style>
 </head>
 <body>
+
+    <!-- Barre de navigation -->
     <div class="navbar">
-        <a href="{{ path('app_home') }}">Home Page</a>
-        <a href="{{ path('app_contact') }}">Contact Us</a>
+        <a href="{{ path('app_crud_author') }}">Authors</a>
+        <a href="{{ path('app_crud_library') }}">Libraries</a>
+        <a href="{{ path('app_crud_book') }}">Books</a>
     </div>
-    <h1>Hello :)</h1>
+
+    <!-- Titre principal -->
+    <h1>Welcome to the Library Management System</h1>
+
+    <!-- Liens principaux -->
+    <div class="link-container">
+        <a href="{{ path('app_crud_author') }}">Authors</a>
+        <a href="{{ path('app_crud_library') }}">Libraries</a>
+        <a href="{{ path('app_crud_book') }}">Books</a>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+        &copy; 2024 Library Management System. All rights reserved.
+    </div>
+
 </body>
 </html>
+

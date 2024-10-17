@@ -1,0 +1,140 @@
+<html>
+<head>
+    <title>List of Books</title>
+    <style>
+            body {
+                font-family: Arial, sans-serif;
+                margin: 0;
+                padding: 20px;
+                background-color: #f4f4f4;
+            }
+
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                margin: 20px 0;
+                background-color: #fff;
+                box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            }
+
+            th, td {
+                padding: 12px;
+                text-align: left;
+                border-bottom: 1px solid #ddd;
+            }
+
+            th {
+                background-color: #5C6BC0;
+                color: white;
+            }
+
+            tr:hover {
+                background-color: #f1f1f1;
+            }
+
+            a {
+                color: #3949AB;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            h1 {
+                margin-top: 20px;
+                font-size: 24px;
+                color: #333;
+                text-align: center;
+            }
+
+            .container {
+                max-width: 1200px;
+                margin: 0 auto;
+            }
+
+            .table-container {
+                overflow-x: auto;
+            }
+
+            form {
+    display: flex;
+    justify-content: center; /* Centrer le formulaire */
+    margin-bottom: 20px; /* Espacement en bas du formulaire */
+}
+
+input[type="text"] {
+    padding: 10px; /* Espacement interne pour le champ de texte */
+    border: 1px solid #ccc; /* Bordure grise */
+    border-radius: 4px; /* Coins arrondis */
+    width: 300px; /* Largeur fixe pour le champ de texte */
+    font-size: 16px; /* Taille de la police */
+    transition: border-color 0.3s; /* Effet de transition pour le changement de couleur */
+}
+
+input[type="text"]:focus {
+    border-color: #5C6BC0; /* Couleur de bordure lors du focus */
+    outline: none; /* Supprimer l'outline par défaut */
+}
+
+button {
+    padding: 10px 15px; /* Espacement interne pour le bouton */
+    background-color: #5C6BC0; /* Couleur de fond du bouton */
+    color: white; /* Couleur du texte */
+    border: none; /* Supprimer la bordure */
+    border-radius: 4px; /* Coins arrondis */
+    cursor: pointer; /* Changer le curseur pour indiquer que c'est cliquable */
+    font-size: 16px; /* Taille de la police */
+    margin-left: 10px; /* Espacement à gauche du bouton */
+    transition: background-color 0.3s; /* Effet de transition pour la couleur de fond */
+}
+
+button:hover {
+    background-color: #3949AB; /* Couleur de fond lors du survol */
+}
+
+</style>
+</head>
+<body>
+    <h1>List of Books</h1>
+
+    {% if publishedBooks is not empty %}
+        <table>
+            <tr>
+                <th>Title</th>
+                <th>Publication Date</th>
+                <th>Is Published</th>
+                <th>Category</th>
+                <th>Author</th>
+                <th>Nombre De Pages</th>
+                <th>Actions</th>
+            </tr>
+
+            {% for book in publishedBooks %}
+            <tr>
+                <td>{{ book.title }}</td>
+                <td>{{ book.publicationDate ? book.publicationDate|date('Y-m-d') : 'N/A' }}</td>
+                <td>{{ book.published ? 'Yes' : 'No' }}</td>
+                <td>{{ book.category }}</td>
+                <td>{{ book.author.name }}</td>
+                <td>{{ book.nbrPages }}</td>
+                <td>
+                    <a href="{{ path('app_crud_book_edit', { id: book.id }) }}">Edit</a>
+                    <a href="{{ path('app_crud_book_delete', {'id': book.id}) }}" onclick="return confirm('Are you sure you want to delete this book?');">Delete</a>
+                    <a href="{{ path('app_crud_book_show', {'id': book.id}) }}">Show</a> 
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <h2>No Books found</h2>
+    {% endif %}
+    <center>
+       <h3> Number of published books : {{ publishedCount }} </h3>
+       <h3> Number of unpublished books : {{ unpublishedCount }}</h3>
+       <h3>Nombre de livres dans la catégorie "Romance"</h3>
+       <p>Il y a {{ romanceCount }} livres dans la catégorie "Romance".</p>
+       <a href="{{ path('app_crud_book_add') }}">Add a Book</a>
+    </center>
+</body>
+</html>

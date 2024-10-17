@@ -78,7 +78,7 @@ input[type="text"]:focus {
 }
 
 button {
-    padding: 10px 15px; /* Espacement interne pour le bouton */
+    padding: 8px 12px; /* Espacement interne pour le bouton */
     background-color: #5C6BC0; /* Couleur de fond du bouton */
     color: white; /* Couleur du texte */
     border: none; /* Supprimer la bordure */
@@ -93,6 +93,27 @@ button:hover {
     background-color: #3949AB; /* Couleur de fond lors du survol */
 }
 
+
+.input-field {
+    width: 150px; /* Prend toute la largeur du conteneur */
+    padding: 10px; /* Rembourage pour le confort de saisie */
+    margin: 5px 0; /* Marge au-dessus et en dessous des champs */
+    border: 1px solid #ccc; /* Bordure légère */
+    border-radius: 4px; /* Bords arrondis */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Ombre pour un effet de profondeur */
+    font-size: 16px; /* Taille de police */
+}
+
+.input-field:focus {
+    border-color: #007bff; /* Couleur de bordure au focus */
+    outline: none; /* Supprime l'effet de contour par défaut */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Ombre au focus */
+}
+
+.form-row {
+    margin-bottom: 10px; /* Espace entre les lignes du formulaire */
+}
+
        </style>
   </head>
 <body>
@@ -102,7 +123,23 @@ button:hover {
             <input type="text" name="library_name" placeholder="Search by Library Name">
             <button type="submit">Search</button>
         </form>
+
+       <center>
+           <h3>Search author by number of books</h3>
+       </center>
+
+       {{ form_start(form) }}
+        <div>
+          {{ form_row(form.minBooks, {'attr': {'class': 'input-field'}}) }} {# Remplace 'minBooks' par le champ correspondant dans ton formulaire #}
+        </div>
+        <div>
+          {{ form_row(form.maxBooks, {'attr': {'class': 'input-field'}}) }} {# Remplace 'maxBooks' par le champ correspondant dans ton formulaire #}
+        </div>
+        <button type="submit">Search</button>
+       {{ form_end(form) }}
+
         <div class="table-container">
+
             {% if list is defined and list is not empty %}
                 <table>
                     <tr>
@@ -133,6 +170,11 @@ button:hover {
             {% else %}
                 <h1>This table is not defined or empty</h1>
             {% endif %}
+            <center>
+               <a href="{{ path('app_crud_author_delete_no_books') }}" onclick="return confirm('Are you sure you want to delete authors with no books?');">Delete Authors with No Books</a>
+               <p></p>
+               <a href="{{ path('app_crud_author_supprimer_no_books') }}" onclick="return confirm('Are you sure you want to delete authors with no books?');">Delete Authors with No Books With DQL Method</a>
+            </center>
         </div>
     </div>
 </body>

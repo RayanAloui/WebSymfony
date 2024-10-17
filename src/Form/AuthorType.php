@@ -11,6 +11,7 @@ use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType; 
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class AuthorType extends AbstractType {
@@ -24,7 +25,8 @@ class AuthorType extends AbstractType {
                 'class' => Library::class,
                 'choice_label' => 'name',             
                 'placeholder' => 'Select a library',
-            ]);
+            ])
+            ->add('save',SubmitType::class);
     }
 
     public function configureOptions(OptionsResolver $resolver): void {
@@ -33,3 +35,5 @@ class AuthorType extends AbstractType {
         ]);
     }
 }
+
+?>
