@@ -277,4 +277,20 @@ class CrudAuthorController extends AbstractController
 
         return $this->redirectToRoute('app_crud_author'); // Rediriger vers la liste des auteurs
     }*/
+
+    #[Route('/authors-by-email', name: 'app_crud_author_by_email')]
+    public function listAuthorsByEmail(Request $request , AuthorRepository $repository): Response
+    {
+        // Appeler la méthode du repository pour récupérer les auteurs triés par email
+        $authors = $repository->listAuthorByEmail();
+
+        // Créer le formulaire de recherche par nombre de livres
+        $form = $this->createForm(AuthorSearchType::class); // Créez le formulaire comme dans la méthode list
+        $form->handleRequest($request);
+
+        return $this->render('crud_author/list.html.twig', [
+            'list' => $authors,
+            'form' => $form->createView(), // Passer la vue du formulaire
+        ]);
+    }
 }

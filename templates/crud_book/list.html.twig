@@ -98,6 +98,11 @@ button:hover {
 <body>
     <h1>List of Books</h1>
 
+     <form method="get" action="{{ path('app_crud_book') }}">
+        <input type="text" name="book_id" placeholder="Enter Book ID">
+        <button type="submit">Search</button>
+    </form>
+
     {% if publishedBooks is not empty %}
         <table>
             <tr>
@@ -135,6 +140,13 @@ button:hover {
        <h3>Nombre de livres dans la catégorie "Romance"</h3>
        <p>Il y a {{ romanceCount }} livres dans la catégorie "Romance".</p>
        <a href="{{ path('app_crud_book_add') }}">Add a Book</a>
+       <p></p>
+       <a href="{{ path('app_crud_book', { 'sort': 'author' }) }}">Trier par Auteur</a>
+       <p></p>
+       <a href="{{ path('app_crud_book', { 'filter': 'before2023' }) }}">Afficher les livres publiés avant 2023 avec des auteurs ayant plus de 10 livres</a>
+       <p></p>
+       <a href="{{ path('app_crud_book', { 'update': 'true' }) }}">Mettre à jour les catégories de Science-Fiction à Romance</a>
+       <p></p>
     </center>
 </body>
 </html>

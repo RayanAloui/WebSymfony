@@ -42,6 +42,13 @@ class AuthorRepository extends ServiceEntityRepository
         $this->getEntityManager()->createQuery($dql)->execute();
     }
 
+    public function listAuthorByEmail(){
+        return $this->createQueryBuilder('a')
+        ->orderBy('a.email' , 'ASC')
+        ->getQuery()
+        ->getResult();
+    }
+
     //    /**
     //     * @return Author[] Returns an array of Author objects
     //     */

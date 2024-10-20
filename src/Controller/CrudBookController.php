@@ -29,17 +29,45 @@ class CrudBookController extends AbstractController
     }*/
 
     #[Route('/list', name: 'app_crud_book')]
-    public function list(BookRepository $repository): Response
+    public function list(Request $request, BookRepository $repository): Response
     {
-        // Récupérer tous les livres publiés
-        $publishedBooks = $repository->findBy(['published' => true]);
+        // Récupérer l'ID de livre recherché et le paramètre de tri depuis la requête
+        $bookId = $request->query->get('book_id');
+        $sortByAuthor = $request->query->get('sort') === 'author';
+        $filterBefore2023 = $request->query->get('filter') === 'before2023';
+        $updateCategories = $request->query->get('update') === 'true';
+        $publishedBooks = [];
 
-        // Compter le nombre de livres publiés et non publiés
+        // Si l'utilisateur a demandé une mise à jour des catégories
+        if ($updateCategories) {
+            $updatedCount = $repository->updateScienceFictionToRomance(); // Appelle la méthode de mise à jour
+            $request->getSession()->set('updatedCount', $updatedCount); // Stocke le résultat dans la session
+        } else {
+            $updatedCount = $request->getSession()->get('updatedCount', 0); // Récupère le nombre mis à jour depuis la session
+        }
+
+        // Si un ID est fourni, chercher le livre correspondant
+        if ($bookId) {
+            $book = $repository->searchBookById($bookId);
+            if ($book) {
+                $publishedBooks[] = $book;
+            }
+        } else {
+            // Vérifie si l'utilisateur veut filtrer les livres publiés avant 2023
+            if ($filterBefore2023) {
+                $publishedBooks = $repository->findBooksBefore2023();
+            } else {
+                // Récupérer tous les livres publiés, triés si nécessaire
+                $publishedBooks = $sortByAuthor ? $repository->booksListByAuthors() : $repository->findBy(['published' => true]);
+            }
+        }
+
+        // Compter le nombre total de livres
         $totalBooks = $repository->count([]);
-        $publishedCount = count($publishedBooks);
+        $publishedCount = is_array($publishedBooks) ? count($publishedBooks) : 0;
         $unpublishedCount = $totalBooks - $publishedCount;
 
-        // Compter le nombre de livres dans la catégorie "Romance"
+        // Compter les livres dans la catégorie "Romance"
         $romanceCount = $repository->countBooksByCategory('Romance');
 
         return $this->render('crud_book/list.html.twig', [
